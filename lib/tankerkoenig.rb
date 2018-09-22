@@ -6,7 +6,7 @@ require "tankerkoenig/opening_time"
 
 module Tankerkoenig
 	@api_base = 'https://creativecommons.tankerkoenig.de/json'
-	@api_key = ''
+	@api_key = ENV['TANKERKOENIG_API_KEY'] || ''
 
 	class << self
 		attr_accessor :api_key, :api_base
