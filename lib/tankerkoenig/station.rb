@@ -32,8 +32,7 @@ module Tankerkoenig
     end
 
     def self.detail(id)
-      url = "#{Tankerkoenig.api_base}/detail.php?id=#{id}&apikey=#{Tankerkoenig.api_key}"
-      response = Faraday.get(url)
+      response = conn.get("detail.php", { id: id })
       attributes = JSON.parse(response.body)
       response = Response.new(attributes)
       response.result = Station.new(attributes)
@@ -42,8 +41,7 @@ module Tankerkoenig
 
 
     def self.list(lat, lng, rad, type, sort)
-      url = "#{Tankerkoenig.api_base}/list.php?lat=#{lat}&lng=#{lng}&rad=#{rad}&type=#{type}&sort=#{sort}&apikey=#{Tankerkoenig.api_key}"
-      response = Faraday.get(url)
+      response = conn.get("list.php", { lat: lat, lng: lng, rad: rad, type: type, sort: sort })
       attributes = JSON.parse(response.body)
       response = Response.new(attributes)
 
@@ -57,6 +55,10 @@ module Tankerkoenig
 
       response.result = stations
       response
+    end
+
+    def self.conn
+      Tankerkoenig.conn
     end
 
     def detail

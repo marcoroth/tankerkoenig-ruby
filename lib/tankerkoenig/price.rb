@@ -25,9 +25,7 @@ module Tankerkoenig
 
     def self.get(ids)
       ids = ids.join(',') if ids.is_a?(Array)
-      url = "#{Tankerkoenig.api_base}/prices.php?ids=#{ids}&apikey=#{Tankerkoenig.api_key}"
-
-      response = Faraday.get(url)
+      response = conn.get("prices.php", { ids: ids })
       attributes = JSON.parse(response.body)
       response = Response.new(attributes)
 
@@ -41,6 +39,10 @@ module Tankerkoenig
 
       response.result = prices
       response
+    end
+
+    def self.conn
+      Tankerkoenig.conn
     end
 
     def station
