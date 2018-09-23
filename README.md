@@ -37,7 +37,7 @@ Tankerkoenig::Station.detail('24a381e3-0d72-416d-bfd8-b2f65f6e5802')
 Search stations in the radius of the given coordinates.
 
 ```ruby
-Tankerkoenig::Station.list(52.521, 13.438, 1.5, 'all', 'dist')
+Tankerkoenig::Station.list(lat: 52.521, lng: 13.438, rad: 1.5, type: :all, sort: :dist)
 # => #<Tankerkoenig::Response @ok=true @result=[#<Tankerkoenig::Station [...]>, #<Tankerkoenig::Station [...]>] [...]>
 ```
 
@@ -54,7 +54,7 @@ Tankerkoenig::Price.get('4429a7d9-fb2d-4c29-8cfe-2ca90323f9f8,446bdcf5-9f75-47fc
 Interacting with the `Tankerkoenig::Station` class.
 
 ```ruby
-stations = Tankerkoenig::Station.list(52.521, 13.438, 1.5, 'all', 'dist').result
+stations = Tankerkoenig::Station.list(lat: 52.521, lng: 13.438, rad: 1.5, type: :all, sort: :dist).result
 station = stations.first
 
 station.brand
