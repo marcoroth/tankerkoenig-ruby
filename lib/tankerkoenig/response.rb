@@ -4,11 +4,11 @@ module Tankerkoenig
     attr_accessor :result
 
     def initialize(attributes)
-      @ok = attributes['ok']
-      @license = attributes['license']
-      @data = attributes['data']
-      @status = attributes['status']
-      @message = attributes['message']
+      @ok = !attributes[:ok].nil? ? attributes[:ok] : false
+      @license = attributes[:license] || ''
+      @data = attributes[:data] || ''
+      @status = attributes[:status] || ''
+      @message = attributes[:message] || "an error occured"
       @result = []
     end
 

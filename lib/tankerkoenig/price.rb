@@ -8,10 +8,10 @@ module Tankerkoenig
     def initialize(*attributes)
       if attributes.count == 2
         @station_id = attributes[0]
-        @status = attributes[1]['status']
-        @e5 = attributes[1]['e5']
-        @e10 = attributes[1]['e10']
-        @diesel = attributes[1]['diesel']
+        @status = attributes[1][:status]
+        @e5 = attributes[1][:e5]
+        @e10 = attributes[1][:e10]
+        @diesel = attributes[1][:diesel]
       end
 
       if attributes.count == 5
@@ -26,7 +26,7 @@ module Tankerkoenig
     def self.get(ids)
       ids = ids.join(',') if ids.is_a?(Array)
       response = conn.get("prices.php", { ids: ids })
-      attributes = JSON.parse(response.body)
+      attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
 
       prices = []

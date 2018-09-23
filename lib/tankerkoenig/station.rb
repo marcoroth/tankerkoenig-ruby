@@ -8,23 +8,23 @@ module Tankerkoenig
     attr_reader :lat, :lng, :state
 
     def initialize(station)
-      @id = station['id']
-      @name = station['name']
-      @brand = station['brand']
-      @street = station['street']
-      @house_humber = station['houseNumber']
-      @post_code = station['postCode']
-      @place = station['place']
+      @id = station[:id]
+      @name = station[:name]
+      @brand = station[:brand]
+      @street = station[:street]
+      @house_humber = station[:houseNumber]
+      @post_code = station[:postCode]
+      @place = station[:place]
       @opening_times = []
-      @overrides = station['overrides']
-      @whole_day = station['wholeDay']
-      @is_open = station['isOpen']
-      @lat = station['lat']
-      @lng = station['lng']
-      @state = station['state']
-      @price = Price.new(@id, station['e5'], station['e10'], station['diesel'], @is_open)
+      @overrides = station[:overrides]
+      @whole_day = station[:wholeDay]
+      @is_open = station[:isOpen]
+      @lat = station[:lat]
+      @lng = station[:lng]
+      @state = station[:state]
+      @price = Price.new(@id, station[:e5], station[:e10], station[:diesel], @is_open)
 
-      open_times = station['openingTimes'] || []
+      open_times = station[:openingTimes] || []
 
       open_times.each do |opening_time|
         @opening_times << OpeningTime.new(opening_time)
@@ -33,7 +33,7 @@ module Tankerkoenig
 
     def self.detail(id)
       response = conn.get("detail.php", { id: id })
-      attributes = JSON.parse(response.body)
+      attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
       response.result = Station.new(attributes)
       response
@@ -42,7 +42,7 @@ module Tankerkoenig
 
     def self.list(lat, lng, rad, type, sort)
       response = conn.get("list.php", { lat: lat, lng: lng, rad: rad, type: type, sort: sort })
-      attributes = JSON.parse(response.body)
+      attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
 
       stations = []
