@@ -3,9 +3,9 @@ module Tankerkoenig
     attr_reader :text, :start, :end
 
     def initialize(attributes)
-      @text = attributes['text']
-      @start = attributes['start']
-      @end = attributes['end']
+      @text = attributes[:text]
+      @start = attributes[:start]
+      @end = attributes[:end]
     end
   end
 end

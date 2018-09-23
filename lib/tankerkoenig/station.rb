@@ -37,7 +37,7 @@ module Tankerkoenig
       response = conn.get('detail.php', id: id)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
-      response.result = Station.new(attributes)
+      response.result = Station.new(attributes[:station])
       response
     end
 
@@ -64,7 +64,7 @@ module Tankerkoenig
       stations = []
 
       if response.success?
-        attributes['stations'].each do |station|
+        attributes[:stations].each do |station|
           stations << Station.new(station)
         end
       end
