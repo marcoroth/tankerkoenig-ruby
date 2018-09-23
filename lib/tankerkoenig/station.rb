@@ -32,6 +32,8 @@ module Tankerkoenig
     end
 
     def self.detail(id)
+      return Response.new(message: 'you have to submit a valid station id') if id.nil? || id.empty?
+
       response = conn.get('detail.php', id: id)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
@@ -39,8 +41,22 @@ module Tankerkoenig
       response
     end
 
+    def self.list(lat: nil, lng: nil, rad: 1, type: nil, sort: nil)
+      type_options = %w[e5 e10 diesel all]
+      sort_options = %w[price dist]
 
-    def self.list(lat, lng, rad, type, sort)
+      return Response.new(message: 'you need to submit a valid lat coordinate') if lat.nil?
+      return Response.new(message: 'you need to submit a valid lng coordinate') if lng.nil?
+      return Response.new(message: 'you need to submit a valid radius between 1 and 25') if rad.nil? || rad.to_f >= 25 || rad.to_f < 1
+
+      if sort.nil? && type.nil?
+        type = :all
+      else
+        return Response.new(message: "wrong type parameter. The available options are #{type_options}") if !type_options.include?(type.to_s)
+      end
+
+      return Response.new(message: "wrong sort parameter. The available options are #{sort_options}") if !sort_options.include?(sort.to_s)
+
       response = conn.get('list.php', lat: lat, lng: lng, rad: rad, type: type, sort: sort)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)

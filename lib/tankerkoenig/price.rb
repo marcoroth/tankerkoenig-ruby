@@ -25,6 +25,8 @@ module Tankerkoenig
 
     def self.get(ids)
       ids = ids.join(',') if ids.is_a?(Array)
+      return Response.new(message: 'ids must be an Array or a String') unless ids.is_a?(String)
+
       response = conn.get('prices.php', ids: ids)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
