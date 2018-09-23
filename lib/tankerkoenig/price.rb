@@ -25,7 +25,7 @@ module Tankerkoenig
 
     def self.get(ids)
       ids = ids.join(',') if ids.is_a?(Array)
-      response = conn.get("prices.php", { ids: ids })
+      response = conn.get('prices.php', ids: ids)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
 

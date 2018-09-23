@@ -32,7 +32,7 @@ module Tankerkoenig
     end
 
     def self.detail(id)
-      response = conn.get("detail.php", { id: id })
+      response = conn.get('detail.php', id: id)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
       response.result = Station.new(attributes)
@@ -41,7 +41,7 @@ module Tankerkoenig
 
 
     def self.list(lat, lng, rad, type, sort)
-      response = conn.get("list.php", { lat: lat, lng: lng, rad: rad, type: type, sort: sort })
+      response = conn.get('list.php', lat: lat, lng: lng, rad: rad, type: type, sort: sort)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
 
