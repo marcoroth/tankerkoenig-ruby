@@ -52,10 +52,10 @@ module Tankerkoenig
       if sort.nil? && type.nil?
         type = :all
       else
-        return Response.new(message: "wrong type parameter. The available options are #{type_options}") if !type_options.include?(type.to_s)
+        return Response.new(message: "wrong type parameter. The available options are #{type_options}") unless type_options.include?(type.to_s)
       end
 
-      return Response.new(message: "wrong sort parameter. The available options are #{sort_options}") if !sort_options.include?(sort.to_s)
+      return Response.new(message: "wrong sort parameter. The available options are #{sort_options}") unless sort_options.include?(sort.to_s)
 
       response = conn.get('list.php', lat: lat, lng: lng, rad: rad, type: type, sort: sort)
       attributes = JSON.parse(response.body, symbolize_names: true)
