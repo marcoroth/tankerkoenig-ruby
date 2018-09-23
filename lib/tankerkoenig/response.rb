@@ -8,7 +8,11 @@ module Tankerkoenig
       @license = attributes[:license] || ''
       @data = attributes[:data] || ''
       @status = attributes[:status] || ''
-      @message = attributes[:message] || "an error occured"
+      if @ok
+        @message = attributes[:message] || ''
+      else
+        @message = attributes[:message] || 'an error occured'
+      end
       @result = []
     end
 
