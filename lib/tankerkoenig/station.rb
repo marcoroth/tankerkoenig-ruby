@@ -62,16 +62,14 @@ module Tankerkoenig
       response = conn.get('list.php', lat: lat, lng: lng, rad: rad, type: type, sort: sort)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
-
-      stations = []
+      response.result = []
 
       if response.success?
         attributes[:stations].each do |station|
-          stations << Station.new(station)
+          response.result << Station.new(station)
         end
       end
 
-      response.result = stations
       response
     end
 

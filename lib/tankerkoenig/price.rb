@@ -30,16 +30,14 @@ module Tankerkoenig
       response = conn.get('prices.php', ids: ids)
       attributes = JSON.parse(response.body, symbolize_names: true)
       response = Response.new(attributes)
-
-      prices = []
+      response.result = []
 
       if response.success?
         attributes['prices'].to_a.each do |p|
-          prices << new(p.first, p.last)
+          response.result << new(p.first, p.last)
         end
       end
 
-      response.result = prices
       response
     end
 
