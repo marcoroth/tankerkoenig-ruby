@@ -8,6 +8,8 @@ module Tankerkoenig
     attr_reader :lat, :lng, :state
 
     def initialize(station)
+      return if station.nil?
+
       @id = station[:id]
       @name = station[:name]
       @brand = station[:brand]
