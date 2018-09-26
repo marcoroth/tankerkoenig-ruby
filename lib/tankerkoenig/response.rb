@@ -23,5 +23,10 @@ module Tankerkoenig
     def error?
       !@ok
     end
+
+    def any?
+      @result != [] && @result != nil
+    end
+
   end
 end
