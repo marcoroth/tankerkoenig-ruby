@@ -33,7 +33,7 @@ module Tankerkoenig
       response.result = []
 
       if response.success?
-        attributes['prices'].to_a.each do |p|
+        attributes[:prices].to_a.each do |p|
           response.result << new(p.first, p.last)
         end
       end
