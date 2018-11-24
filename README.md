@@ -1,5 +1,7 @@
 # Tankerkoenig
 
+![](https://api.travis-ci.com/marcoroth/tankerkoenig-ruby.svg?branch=master)
+
 This is a Ruby Wrapper for the [Tankerkönig HTTP API](https://creativecommons.tankerkoenig.de).
 
 
